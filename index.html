@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مذاق — مطاعم موريتانيا</title>
+<meta name="description" content="اكتشف أشهى مطاعم موريتانيا واطلب طعامك في دقائق.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#home" class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
+      </span>
+      <span class="brand-name">مذاق</span>
+    </a>
+
+    <nav class="main-nav" aria-label="التنقل الرئيسي">
+      <a href="#home" class="active">الرئيسية</a>
+      <a href="#restaurants">المطاعم</a>
+      <a href="#dishes">الأطباق</a>
+      <a href="#cities">المدن</a>
+      <a href="#offers">العروض</a>
+      <a href="#orders">طلباتي</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="btn btn-outline" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h10.2L20 7H6"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>
+        <span>السلة (<span id="cartCount">0</span>)</span>
+      </button>
+      <button class="btn btn-primary hide-mobile" type="button">تسجيل الدخول</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- الواجهة والبحث -->
+  <section id="home" class="hero">
+    <div class="container hero-inner">
+      <span class="pill-gold">توصيل إلى باب بيتك</span>
+      <h1>اكتشف أشهى مطاعم موريتانيا واطلب طعامك في دقائق</h1>
+      <p>من الأرز بالسمك في نواذيبو إلى المشاوي في نواكشوط، كل ما تحبه في مكان واحد.</p>
+
+      <form class="search" id="searchForm" role="search">
+        <label class="search-city">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span class="sr-only">المدينة</span>
+          <select id="citySelect"></select>
+        </label>
+        <label class="search-input">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          <span class="sr-only">ابحث عن مطعم أو طبق</span>
+          <input type="search" id="searchInput" placeholder="ابحث عن مطعم أو طبق…" autocomplete="off">
+        </label>
+        <button class="btn btn-gold" type="submit">بحث</button>
+      </form>
+
+      <div class="quick">
+        <span>الأكثر بحثًا:</span>
+        <button type="button" class="chip" data-q="أرز بالسمك">أرز بالسمك</button>
+        <button type="button" class="chip" data-q="مشوي">مشاوي</button>
+        <button type="button" class="chip" data-q="كسكس">كسكس</button>
+        <button type="button" class="chip" data-q="مظرّب">مظرّب</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- المدن -->
+  <section id="cities" class="section">
+    <div class="container">
+      <div class="section-head"><h2>تصفّح حسب المدينة</h2><button type="button" class="link" id="clearCity">عرض الكل</button></div>
+      <div class="grid cities-grid" id="citiesGrid"></div>
+    </div>
+  </section>
+
+  <!-- المطاعم -->
+  <section id="restaurants" class="section">
+    <div class="container">
+      <div class="section-head"><h2>مطاعم مميّزة</h2><span class="muted" id="restCount"></span></div>
+      <div class="grid rest-grid" id="restGrid"></div>
+      <p class="empty" id="restEmpty" hidden>لا توجد مطاعم مطابقة لبحثك.</p>
+    </div>
+  </section>
+
+  <!-- الأطباق -->
+  <section id="dishes" class="section">
+    <div class="container">
+      <div class="section-head"><h2>أطباق يحبها الجميع</h2><span class="muted" id="dishCount"></span></div>
+      <div class="grid dish-grid" id="dishGrid"></div>
+      <p class="empty" id="dishEmpty" hidden>لا توجد أطباق مطابقة لبحثك.</p>
+    </div>
+  </section>
+
+  <!-- العروض -->
+  <section id="offers" class="section">
+    <div class="container">
+      <div class="promo">
+        <div>
+          <h2>توصيل مجاني لأول طلب</h2>
+          <p>سجّل الآن واستمتع بتوصيل مجاني على طلبك الأول.</p>
+        </div>
+        <button class="btn btn-primary btn-lg" type="button">أنشئ حسابك</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="orders" class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-about">
+      <span class="footer-brand">مذاق</span>
+      <p>منصة لاكتشاف المطاعم وطلب الطعام في مدن موريتانيا.</p>
+    </div>
+    <div class="footer-col"><strong>روابط</strong><a href="#restaurants">المطاعم</a><a href="#dishes">الأطباق</a><a href="#cities">المدن</a></div>
+    <div class="footer-col"><strong>الدعم</strong><a href="#home">اتصل بنا</a><a href="#home">الأسئلة الشائعة</a><a href="#home">انضم كمطعم</a></div>
+  </div>
+</footer>
+
+<!-- شريط التنقل السفلي للهاتف -->
+<nav class="bottom-nav" aria-label="التنقل السفلي">
+  <a href="#home" class="active"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9H4z"/></svg>الرئيسية</a>
+  <a href="#restaurants"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>المطاعم</a>
+  <a href="#dishes"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14a7 7 0 0 1-14 0zM9 8c0-2 2-2 2-4M14 8c0-2 2-2 2-4"/></svg>الأطباق</a>
+  <a href="#cities"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>المدن</a>
+  <a href="#orders"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v16l-2.5-1.5L12 20l-2.5-1.5L7 20z"/><path d="M10 9h4M10 13h4"/></svg>طلباتي</a>
+</nav>
+
+<script src="script.js"></script>
+</body>
+</html>
